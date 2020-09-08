@@ -5,7 +5,11 @@ project(dds)
 option(USE_WINDOWS_THREADING "Build with WinAPI threads" "OFF")
 option(USE_STL_THREADING "Build with std::thread" "ON")
 
-add_library(${PROJECT_NAME} SHARED dds.cpp Init.cpp dump.cpp ABsearch.cpp ABstats.cpp CalcTables.cpp DealerPar.cpp File.cpp LaterTricks.cpp Memory.cpp Moves.cpp Par.cpp PlayAnalyser.cpp PBN.cpp QuickTricks.cpp Scheduler.cpp SolveBoard.cpp SolverIF.cpp System.cpp ThreadMgr.cpp Timer.cpp TimerGroup.cpp TimerList.cpp TimeStat.cpp TimeStatList.cpp TransTableS.cpp TransTableL.cpp)
+set(HDRS ABsearch.h ABstats.h CalcTables.h dds.h debug.h dump.h File.h Init.h LaterTricks.h Memory.h Moves.h parallel.h PBN.h PlayAnalyser.h QuickTricks.h Scheduler.h SolveBoard.h SolverIF.h System.h ThreadMgr.h Timer.h TimerGroup.h TimerList.h TimeStat.h TimeStatList.h TransTable.h TransTableL.h TransTableS.h)
+
+set(SRCS dds.cpp Init.cpp dump.cpp ABsearch.cpp ABstats.cpp CalcTables.cpp DealerPar.cpp File.cpp LaterTricks.cpp Memory.cpp Moves.cpp Par.cpp PlayAnalyser.cpp PBN.cpp QuickTricks.cpp Scheduler.cpp SolveBoard.cpp SolverIF.cpp System.cpp ThreadMgr.cpp Timer.cpp TimerGroup.cpp TimerList.cpp TimeStat.cpp TimeStatList.cpp TransTableS.cpp TransTableL.cpp)
+
+add_library(${PROJECT_NAME} SHARED ${SRCS} ${HDRS})
 if (${USE_WINDOWS_THREADING})
 list(APPEND THREAD_OPTIONS "DDS_THREADS_WINAPI")
 endif()
@@ -15,3 +19,4 @@ list(APPEND THREAD_OPTIONS "DDS_THREADS_STL")
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${THREAD_OPTIONS})
+
